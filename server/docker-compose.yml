@@ -1,0 +1,13 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    network_mode: "host" # Use host network mode to access host services directly
+    environment:
+      - MYSQL_HOST=host.docker.internal
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    volumes:
+      - .:/app
+    command: /usr/bin/supervisord -c /etc/supervisor/conf.d/supervisord.conf
